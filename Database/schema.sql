@@ -8,9 +8,9 @@
 DROP DATABASE IF EXISTS gestion_clientes;
 
 -- Crear base de datos
-CREATE DATABASE IF NOT EXISTS gestion_clientes
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS gestion_clientes CHARACTER
+SET
+    utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE gestion_clientes;
 
@@ -25,9 +25,9 @@ CREATE TABLE clientes (
     email VARCHAR(100) COMMENT 'Correo electrónico',
     direccion VARCHAR(200) COMMENT 'Dirección física',
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora de registro',
-    
-    -- Índices para mejorar rendimiento
-    INDEX idx_cedula (cedula),
+
+-- Índices para mejorar rendimiento
+INDEX idx_cedula (cedula),
     INDEX idx_nombre (nombre),
     INDEX idx_fecha (fecha_registro)
     
@@ -40,24 +40,91 @@ CREATE TABLE clientes (
 -- Datos de Prueba
 -- ============================================
 
-INSERT INTO clientes (cedula, nombre, telefono, email, direccion) VALUES
-('1234567890', 'Juan Pérez García', '0991234567', 'juan.perez@email.com', 'Av. 10 de Agosto 234, Quito'),
-('0987654321', 'María Rodríguez López', '0987654321', 'maria.rodriguez@email.com', 'Calle Principal 123, Guayaquil'),
-('1122334455', 'Carlos Sánchez Torres', '0998877665', 'carlos.sanchez@email.com', 'Av. Amazonas 456, Cuenca'),
-('5566778899', 'Laura Morales Vega', '0993344556', 'laura.morales@email.com', 'Calle Flores 321, Loja'),
-('9988776655', 'Ana Martínez Ruiz', '0996655443', 'ana.martinez@email.com', 'Av. República 789, Ambato'),
-('1357924680', 'Pedro González Díaz', '0995544332', 'pedro.gonzalez@email.com', 'Calle Bolívar 567, Riobamba'),
-('2468135790', 'Sofía Ramírez Castro', '0994433221', 'sofia.ramirez@email.com', 'Av. Colón 890, Quito'),
-('3691472580', 'Diego Torres Flores', '0997766554', 'diego.torres@email.com', 'Calle Sucre 234, Guayaquil'),
-('7412589630', 'Carmen López Herrera', '0992233445', 'carmen.lopez@email.com', 'Av. América 456, Quito'),
-('8523697410', 'Roberto Vásquez Mora', '0998877664', 'roberto.vasquez@email.com', 'Calle Pichincha 678, Cuenca');
+INSERT INTO
+    clientes (
+        cedula,
+        nombre,
+        telefono,
+        email,
+        direccion
+    )
+VALUES (
+        '1234567890',
+        'Juan Pérez García',
+        '0991234567',
+        'juan.perez@email.com',
+        'Av. 10 de Agosto 234, Quito'
+    ),
+    (
+        '0987654321',
+        'María Rodríguez López',
+        '0987654321',
+        'maria.rodriguez@email.com',
+        'Calle Principal 123, Guayaquil'
+    ),
+    (
+        '1122334455',
+        'Carlos Sánchez Torres',
+        '0998877665',
+        'carlos.sanchez@email.com',
+        'Av. Amazonas 456, Cuenca'
+    ),
+    (
+        '5566778899',
+        'Laura Morales Vega',
+        '0993344556',
+        'laura.morales@email.com',
+        'Calle Flores 321, Loja'
+    ),
+    (
+        '9988776655',
+        'Ana Martínez Ruiz',
+        '0996655443',
+        'ana.martinez@email.com',
+        'Av. República 789, Ambato'
+    ),
+    (
+        '1357924680',
+        'Pedro González Díaz',
+        '0995544332',
+        'pedro.gonzalez@email.com',
+        'Calle Bolívar 567, Riobamba'
+    ),
+    (
+        '2468135790',
+        'Sofía Ramírez Castro',
+        '0994433221',
+        'sofia.ramirez@email.com',
+        'Av. Colón 890, Quito'
+    ),
+    (
+        '3691472580',
+        'Diego Torres Flores',
+        '0997766554',
+        'diego.torres@email.com',
+        'Calle Sucre 234, Guayaquil'
+    ),
+    (
+        '7412589630',
+        'Carmen López Herrera',
+        '0992233445',
+        'carmen.lopez@email.com',
+        'Av. América 456, Quito'
+    ),
+    (
+        '8523697410',
+        'Roberto Vásquez Mora',
+        '0998877664',
+        'roberto.vasquez@email.com',
+        'Calle Pichincha 678, Cuenca'
+    );
 
 -- ============================================
 -- Verificación de Datos
 -- ============================================
 
 -- Mostrar todos los registros insertados
-SELECT 
+SELECT
     id_cliente,
     cedula,
     nombre,
@@ -106,22 +173,22 @@ SELECT COUNT(*) AS total_clientes FROM clientes;
 
 /*
 1. Esta base de datos es compartida por los tres servicios:
-   - SOAP (Puerto 8080)
-   - gRPC (Puerto 5001)
-   - Sockets (Puerto 5002)
+- SOAP (Puerto 8080)
+- gRPC (Puerto 5001)
+- Sockets (Puerto 5002)
 
 2. El campo 'cedula' tiene constraint UNIQUE para evitar duplicados
 
 3. El campo 'fecha_registro' se genera automáticamente con CURRENT_TIMESTAMP
 
 4. Todos los servicios implementan las mismas operaciones CRUD:
-   - Crear (INSERT)
-   - Obtener Todos (SELECT *)
-   - Obtener por ID (SELECT WHERE id_cliente = ?)
-   - Obtener por Cédula (SELECT WHERE cedula = ?)
-   - Actualizar (UPDATE)
-   - Eliminar (DELETE)
+- Crear (INSERT)
+- Obtener Todos (SELECT *)
+- Obtener por ID (SELECT WHERE id_cliente = ?)
+- Obtener por Cédula (SELECT WHERE cedula = ?)
+- Actualizar (UPDATE)
+- Eliminar (DELETE)
 
 5. Para pruebas, puedes ejecutar:
-   mysql -u root -p < database/schema.sql
+mysql -u root -p < database/schema.sql
 */
